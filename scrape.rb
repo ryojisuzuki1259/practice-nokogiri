@@ -10,7 +10,7 @@ urls = %w(
   https://qiita.com/search?q=php,
   https://qiita.com/search?q=swift
 )
-titles = []
+# titles = []
 
 charset = nil
 urls.each do |url|
@@ -19,13 +19,18 @@ urls.each do |url|
     f.read
   end
 
+  # doc = Nokogiri::HTML.parse(html, nil, charset)
+  # doc.xpath('//h1[@class="searchResult_itemTitle"]').each do |node|
+  #   title = node.css('a').inner_text
+  #   titles.push(title)
+  # end
+  
   doc = Nokogiri::HTML.parse(html, nil, charset)
   doc.xpath('//h1[@class="searchResult_itemTitle"]').each do |node|
-    title = node.css('a').inner_text
-    titles.push(title)
+    p node.css('a').inner_text
   end
 end
 
-CSV.open("qiita_title.csv", "w") do |csv|
-  csv << titles
-end
+# CSV.open("qiita_title.csv", "w") do |csv|
+#   csv << titles
+# end
