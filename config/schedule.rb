@@ -18,10 +18,14 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-
+require File.expand_path(File.dirname(__FILE__) + "/environment")
 set :output, 'log/crontab.log'#出力先
 set :environment, :production
 
-every :day, :at => '5:00 am' do #日時設定
-  ruby "scrape.rb" #rakeタスクを実行
+# every :day, :at => '5:00 am' do #日時設定
+#   ruby "scrape.rb" #rakeタスクを実行
+# end
+
+every 1.minute do
+  command "ruby 'scrape.rb'"
 end
